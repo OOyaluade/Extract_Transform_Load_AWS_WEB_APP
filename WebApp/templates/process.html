@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Upload File{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">File Processing Confirmation</h2>
+    
+    <div class="alert alert-info mt-4">
+        <p><strong>Uploaded File:</strong> {{ uploaded_file }}</p>
+        <p><strong>Processing Script:</strong> {{ script_name }}</p>
+    </div>
+
+    <div class="d-flex justify-content-center mt-4">
+        <form action="{{ url_for('process', process_name=script_name) }}" method="post">
+            <button type="submit" class="btn btn-success me-3">Continue Processing</button>
+        </form>
+        <a href="{{ url_for('index') }}" class="btn btn-danger">Quit and/or Return to Home</a>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="mt-4">
+                {% for message in messages %}
+                    <div class="alert alert-warning">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+</div>
+{% endblock %}
